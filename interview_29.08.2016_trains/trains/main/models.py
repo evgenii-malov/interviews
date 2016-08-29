@@ -78,7 +78,7 @@ class TrainPlaceInterval(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     # timeout after 5 min false not payed
-    paid = models.BigIntegerField(default=False)
+    paid = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "{} место: {} время от {} до {}".format(
