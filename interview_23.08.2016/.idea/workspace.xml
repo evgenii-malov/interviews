@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72944868-1ed2-4c45-b2f2-e2ce0bda15ce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../interview_25.08.2016 (trains)/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../interview_29.08.2016 (trains)/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../interview_29.08.2016_trains/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../interview_29.08.2016_trains/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../interview_29.08.2016_trains/trains/main/models.py" afterPath="$PROJECT_DIR$/../interview_29.08.2016_trains/trains/main/models.py" />
-    </list>
+    <list default="true" id="72944868-1ed2-4c45-b2f2-e2ce0bda15ce" name="Default" comment="" />
     <ignored path="interview_23.08.2016.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
