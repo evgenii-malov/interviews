@@ -23,9 +23,6 @@ class DateTrain(models.Model):
     train = models.ForeignKey(Train)
     start = models.DateTimeField()
 
-    # date = models.DateField()
-    # time = models.TimeField()
-
     def __unicode__(self):
         return "{}:{}".format(self.train, self.start)
 
@@ -70,11 +67,6 @@ class NodeIntervalPrice(models.Model):
 
     def __unicode__(self):
         return "от {} до {} цена {}".format(self.node1, self.node2, self.price)
-
-
-# class TrainPlace(models.Model):
-#    datetrain = models.ForeignKey(DateTrain)
-#    number = models.PositiveIntegerField()
 
 
 class TrainPlaceInterval(models.Model):
