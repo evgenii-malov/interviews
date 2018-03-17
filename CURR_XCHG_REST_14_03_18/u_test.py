@@ -21,8 +21,8 @@ class BaseTest(unittest.TestCase):
                 self.assertTrue((src.amount - src2.amount) < Decimal(0.001))
                 self.assertEqual(src.symbol.symbol, src.symbol.symbol)
 
-        for p in product(Currencies_symbols, Currencies_symbols):
-            test_pair(p[0], p[1])
+        for f, t in ((f, t) for f, t in product(Currencies_symbols, Currencies_symbols) if f != t):
+            test_pair(f, t)
 
     # self.assertEqual('foo'.upper(), 'FOO')
     #     self.assertTrue('FOO'.isupper())

@@ -1,14 +1,9 @@
-import pickle
-import datetime
 import domain
 from aiohttp import web
 import json
 import asyncio
-import os
-
-# LAST_UPLOADED_DAY = None
-# RATES_DB = None
 from datasources.openexc_datasource import build_rates_db
+from functools import partial
 
 
 async def handle(request):
@@ -21,8 +16,8 @@ async def handle(request):
         return web.Response(text=json.dumps(response_obj))
 
     try:
-        to_amount = domain.conversion(request.app['rates_db'], domain.Currency(from_symbol, from_amount),
-                                      domain.Symbol(to_symbol))
+        to_amount = request.app['convertor'](domain.Currency(from_symbol, from_amount),
+                                             domain.Symbol(to_symbol))
         # raise Exception()
         response_obj = {'result': 'succes', 'from': from_symbol, 'from_amount': from_amount, 'to': to_symbol,
                         'to_amount': str(to_amount.amount)}
@@ -40,16 +35,21 @@ async def handle(request):
 
 async def update_db(app):
     while True:
-        # подгружаем файл если есть
         try:
             await asyncio.sleep(60 * 60 * 24)  # update once a day
             app['rates_db'] = build_rates_db()
+            app['convertor'] = partial(domain.conversion, app['rates_db'])
         except asyncio.CancelledError:  # supress cancel exception
+            pass
+        except Exception as e:
+            # update problems here
+            # todo log error and send email to admin
             pass
 
 
 async def start_background_tasks(app):
     app['rates_db'] = build_rates_db()
+    app['convertor'] = partial(domain.conversion, app['rates_db'])
     app['db_updater_corotine'] = app.loop.create_task(update_db(app))
 
 
@@ -62,5 +62,5 @@ if __name__ == "__main__":
     app = web.Application()
     app.on_startup.append(start_background_tasks)
     app.on_cleanup.append(cleanup_background_tasks)
-    app.router.add_route('*', '/', handle)
+    app.router.add_get('/', handle)
     web.run_app(app)

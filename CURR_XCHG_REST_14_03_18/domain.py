@@ -20,8 +20,7 @@ class Currency:
         except Exception:
             raise DomainValidationError('Wrong currency amount value {} use decimal number'.format(amount))
 
-
-        if self.amount<0:
+        if self.amount < 0:
             raise DomainValidationError('Wrong currency amount value {} use positive number'.format(amount))
 
     def __str__(self):
@@ -51,7 +50,7 @@ class Rates:
         try:
             return self.base_rates[symbol.symbol]
         except KeyError:
-            raise DomainValidationError('Symbol rate {} not found in {}'.format(symbol.symbol,self.base_rates))
+            raise DomainValidationError('Symbol rate {} not found in {}'.format(symbol.symbol, self.base_rates))
 
     def __str__(self):
         t = datetime.datetime.fromtimestamp(
@@ -65,7 +64,7 @@ def conversion(rates_db: Rates, curr_from: Currency, to_symbol: Symbol) -> Curre
     if not isinstance(rates_db, Rates):
         raise DomainValidationError('rates_db must be Rates instance, got {}'.format(rates_db))
 
-    if curr_from.symbol.symbol==to_symbol.symbol:
+    if curr_from.symbol.symbol == to_symbol.symbol:
         raise DomainValidationError('Use different symbols, got same {}'.format(to_symbol.symbol))
 
     base_eqvivalent = curr_from.amount / rates_db.get_rate(curr_from.symbol)
