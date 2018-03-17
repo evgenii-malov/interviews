@@ -36,6 +36,10 @@ class BaseTest(unittest.TestCase):
         with self.assertRaises(DomainValidationError):
             Currency(-12, 'USD')
 
+    def test_fixed(self):
+        local_source_rates = build_rates_db()
+        self.assertEqual(conversion(local_source_rates, Currency(Symbol('CZK'), 20.568423), Symbol('USD')).amount, 1)
+
 
 if __name__ == '__main__':
     unittest.main()
